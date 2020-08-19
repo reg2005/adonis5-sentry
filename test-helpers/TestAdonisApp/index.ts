@@ -7,33 +7,28 @@ import { ApplicationContract } from '@ioc:Adonis/Core/Application'
 import { ConfigContract } from '@ioc:Adonis/Core/Config'
 import { join } from 'path'
 
-
-export interface IAdonisProvider {
-	register(): void,
+export interface AdonisProvider {
+	register(): void
 	boot(): void
 }
 
-export interface IAdonisProviderConfig {
-	configName: string,
-	providerConfig: object
-}
-
-export interface IApplicationConfig {
-	configName: string,
+export interface ApplicationConfig {
+	configName: string
 	appConfig: object
 }
 
-export type ProviderConstructor = new (ioc: IocContract) => IAdonisProvider
+export type ProviderConstructor = new (ioc: IocContract) => AdonisProvider
 
 export class AdonisApplication {
-
 	private _bootstrapper: Bootstrapper
 	private _httpServer: HttpServer
 	private _application: ApplicationContract
-	private customerProviderInstance: IAdonisProvider[]
+	private customerProviderInstance: AdonisProvider[]
 
-	constructor(private customProviders: ProviderConstructor[], private appConfigs: IApplicationConfig[] = []) {
-	}
+	constructor(
+		private customProviders: ProviderConstructor[],
+		private appConfigs: ApplicationConfig[] = []
+	) {}
 
 	public async startApp(): Promise<AdonisApplication> {
 		await this.initApplication()
@@ -54,7 +49,7 @@ export class AdonisApplication {
 	}
 
 	private async initCustomProviders() {
-		this.customerProviderInstance = this.customProviders.map(Provider => {
+		this.customerProviderInstance = this.customProviders.map((Provider) => {
 			return new Provider(this._application.container)
 		})
 	}
@@ -62,17 +57,18 @@ export class AdonisApplication {
 	private async registerProviders() {
 		this._bootstrapper.registerAliases()
 		this._bootstrapper.registerProviders(false)
-		this.customerProviderInstance.map(provider => provider.register())
+		this.customerProviderInstance.map((provider) => provider.register())
 	}
 
-
 	private async initApplicationConfigs() {
-		const config: ConfigContract = this._application.container.use<ConfigContract>('Adonis/Core/Config')
+		const config: ConfigContract = this._application.container.use<ConfigContract>(
+			'Adonis/Core/Config'
+		)
 		this.appConfigs.map(({ appConfig, configName }) => config.set(configName, appConfig))
 	}
 
 	private async bootProviders() {
-		this.customerProviderInstance.map(provider => provider.boot())
+		this.customerProviderInstance.map((provider) => provider.boot())
 		await this._bootstrapper.bootProviders()
 	}
 
@@ -81,28 +77,31 @@ export class AdonisApplication {
 		await this._httpServer.start((handler) => createServer(handler))
 	}
 
-	get bootstrapper(): Bootstrapper {
+	public get bootstrapper(): Bootstrapper {
 		return this._bootstrapper
 	}
 
-	get httpServer(): HttpServer {
+	public get httpServer(): HttpServer {
 		return this._httpServer
 	}
 
-	get application(): ApplicationContract {
+	public get application(): ApplicationContract {
 		return this._application
 	}
 
-	get iocContainer(): IocContract {
+	public get iocContainer(): IocContract {
 		return this._application.container
 	}
 
-	public static initApplication(customProviders: ProviderConstructor[], appConfigs: IApplicationConfig[] = []) {
+	public static initApplication(
+		customProviders: ProviderConstructor[],
+		appConfigs: ApplicationConfig[] = []
+	) {
 		const app = new AdonisApplication(customProviders, appConfigs)
 		return app.startApp()
 	}
 
-	public async stopServer () {
+	public async stopServer() {
 		await this._httpServer.close()
 	}
 }
