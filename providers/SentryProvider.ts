@@ -13,6 +13,7 @@ export default class SentryProvider {
 
 	public boot(): void {
 		const config: typeof Config = this.container.use('Adonis/Core/Config')
+		console.log('confog', config.get('sentry'))
 		Sentry.init(config.get('sentry'))
 	}
 }
