@@ -1,6 +1,6 @@
 {
   "name": "adonis5-sentry",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sentry provider for AdonisJS 5",
   "scripts": {
     "mrm": "mrm --preset=@adonisjs/mrm-preset",
@@ -95,7 +95,9 @@
   },
   "main": "build/index.js",
   "files": [
-    "build/src",
+    "build/adonis-typings",
+    "build/providers",
+    "build/templates",
     "build/index.d.ts",
     "build/index.js"
   ],
