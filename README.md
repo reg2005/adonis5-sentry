@@ -25,7 +25,7 @@ node ace serve --watch
 ```
 Connect all dependences:
 ```bash
-node ace invoke adonis5-swagger
+node ace invoke adonis5-sentry
 ```
 * For other configuration, please update the `config/sentry.ts`.
 
