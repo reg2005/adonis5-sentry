@@ -17,7 +17,7 @@ export interface ApplicationConfig {
 	appConfig: object
 }
 
-export type ProviderConstructor = new (ioc: IocContract) => AdonisProvider
+export type ProviderConstructor = new (app: ApplicationContract) => AdonisProvider
 
 export class AdonisApplication {
 	private _bootstrapper: Bootstrapper
@@ -50,7 +50,7 @@ export class AdonisApplication {
 
 	private async initCustomProviders() {
 		this.customerProviderInstance = this.customProviders.map((Provider) => {
-			return new Provider(this._application.container)
+			return new Provider(this._application)
 		})
 	}
 
