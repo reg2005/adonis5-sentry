@@ -61,9 +61,7 @@ export class AdonisApplication {
 	}
 
 	private async initApplicationConfigs() {
-		const config: ConfigContract = this._application.container.use<ConfigContract>(
-			'Adonis/Core/Config'
-		)
+		const config: ConfigContract = this._application.container.use('Adonis/Core/Config')
 		this.appConfigs.map(({ appConfig, configName }) => config.set(configName, appConfig))
 	}
 
