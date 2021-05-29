@@ -1,10 +1,10 @@
 import test from 'japa'
 import { expect } from 'chai'
-import { AdonisApplication } from '../test-helpers/TestAdonisApp'
+import AdonisApplication from 'adonis-provider-tester'
 import SentryProvider from '../providers/SentryProvider'
+import SentryTestKit from 'sentry-testkit'
 
-const sentryTestkit = require('sentry-testkit')
-const { testkit, sentryTransport } = sentryTestkit()
+const { testkit, sentryTransport } = SentryTestKit()
 import sentryFakeConfig from './fixtures/sentry-fake-config'
 const testConfigs = [
 	{
