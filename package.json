@@ -1,6 +1,6 @@
 {
   "name": "adonis5-sentry",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Sentry provider for AdonisJS 5",
   "scripts": {
     "mrm": "mrm --preset=@adonisjs/mrm-preset",
@@ -16,7 +16,7 @@
     "commit": "git-cz",
     "release": "np",
     "version": "npm run build",
-		"prepare": "npm run build",
+    "prepare": "npm run build",
     "run-prettier": "prettier --write .",
     "sync-labels": "github-label-sync --labels ./node_modules/@adonisjs/mrm-preset/gh-labels.json reg2005/adonis5-sentry"
   },
