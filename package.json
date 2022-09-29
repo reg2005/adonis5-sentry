@@ -44,7 +44,7 @@
   "types": "build/adonis-typings/index.d.ts",
   "typings": "build/adonis-typings/index.d.ts",
   "dependencies": {
-    "@sentry/node": "^6.16.1"
+    "@sentry/node": "^7.14.0"
   },
   "devDependencies": {
     "@adonisjs/mrm-preset": "^5.0.2",
@@ -68,7 +68,7 @@
     "np": "^7.6.0",
     "npm-audit-html": "^1.5.0",
     "prettier": "^2.5.1",
-    "sentry-testkit": "^3.3.7",
+    "sentry-testkit": "^4.0.3",
     "source-map-support": "^0.5.21",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4",
